@@ -19,9 +19,11 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/florinutz/liquid-api/cmd/products"
+
 	"github.com/prometheus/common/log"
 
-	"github.com/florinutz/liquid-api/cmd/status"
+	"github.com/florinutz/liquid-api/cmd/accounts"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -48,9 +50,8 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.AddCommand(
-		status.ProductsCmd,
-		status.FiatAccountsCmd,
-		status.CryptoAccountsCmd,
+		products.ProductsCmd,
+		accounts.AccountsCmd,
 	)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.liquid.yaml)")
 }

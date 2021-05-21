@@ -1,13 +1,13 @@
-package status
+package products
 
 import (
 	"fmt"
 	"net/http"
 	"strings"
 
-	"github.com/florinutz/liquid-api/pkg/cli"
-
 	. "github.com/florinutz/liquid-api/pkg"
+
+	"github.com/florinutz/liquid-api/pkg/cli"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +25,7 @@ func init() {
 // ProductsCmd works shows products
 var ProductsCmd = &cobra.Command{
 	Use:          "products",
-	Short:        "shows products",
+	Short:        "lists products",
 	PreRunE:      InitAppE(&App),
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -68,48 +68,6 @@ var ProductsCmd = &cobra.Command{
 			fmt.Printf("%4d %s\n", product.ID, product.CurrencyPairCode)
 		}
 
-		return nil
-	},
-}
-
-// FiatAccountsCmd represents the fiat accounts command
-var FiatAccountsCmd = &cobra.Command{
-	Use:          "fiat",
-	Short:        "your account's status",
-	SilenceUsage: true,
-	PreRunE:      InitAppE(&App),
-	RunE: func(cmd *cobra.Command, args []string) error {
-		accounts, _, err := App.GetFiatAccounts()
-		if err != nil {
-			return err
-		}
-		for _, account := range accounts {
-			if account.Balance < 0.009 {
-				continue
-			}
-			fmt.Printf("%s: %.2f %s\n", account.Currency, account.Balance, account.CurrencySymbol)
-		}
-		return nil
-	},
-}
-
-// CryptoAccountsCmd represents the crypto accounts command
-var CryptoAccountsCmd = &cobra.Command{
-	Use:          "crypto",
-	Short:        "your account's status",
-	SilenceUsage: true,
-	PreRunE:      InitAppE(&App),
-	RunE: func(cmd *cobra.Command, args []string) error {
-		accounts, _, err := App.GetCryptoAccounts()
-		if err != nil {
-			return err
-		}
-		for _, account := range accounts {
-			if account.Balance < 0.009 {
-				continue
-			}
-			fmt.Printf("%s: %.2f %s\n", account.Currency, account.Balance, account.CurrencySymbol)
-		}
 		return nil
 	},
 }
