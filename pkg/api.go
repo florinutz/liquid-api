@@ -49,7 +49,7 @@ func (a *Application) GetProducts(perpetual bool) (products []*model.Product, re
 
 func (a *Application) GetProduct(idOrPairCode string) (product *model.Product, res *http.Response, err error) {
 	var id int
-	if id, err = cli.NormalizeProductID(idOrPairCode); err != nil {
+	if id, err = cli.GetProductID(idOrPairCode); err != nil {
 		return
 	}
 	product = new(model.Product)
